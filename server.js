@@ -12,7 +12,7 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Star Wars Characters (DATA)
+//(DATA)
 // =============================================================
 var customers = [
   {
@@ -35,7 +35,7 @@ var customers = [
   },
   {
     routeName: "Aaron",
-    name: "Steve",
+    name: "Aaron",
     phone: "525-5555",
     reservationTime: "08:30pm"
   }];
@@ -47,20 +47,25 @@ var customers = [
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function(req, res) {
     //route to the home screen
-  res.sendFile(path.join(__dirname, "view.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/add", function(req, res) {
+app.get("/makeres", function(req, res) {
     //route to the add reservation screem
-  res.sendFile(path.join(__dirname, "add.html"));
+  res.sendFile(path.join(__dirname, "makeres.html"));
 });
 
-// Displays all characters
+app.get("/waitlist", function(req, res) {
+    //route to the add reservation screem
+  res.sendFile(path.join(__dirname, "waitlist.html"));
+});
+
+// Displays all customer
 app.get("/api/customers", function(req, res) {
   return res.json(customers);
 });
 
-// Displays a single character, or returns false
+// Displays a single customer, or returns false
 app.get("/api/customers/:customer", function(req, res) {
   var chosen = req.params.customer;
 
@@ -75,13 +80,13 @@ app.get("/api/customers/:customer", function(req, res) {
   return res.json(false);
 });
 
-// Create New Characters - takes in JSON input
+// Create New Reservations - takes in JSON input
 app.post("/api/customers", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
   var newCustomer = req.body;
 
-  // Using a RegEx Pattern to remove spaces from newCharacter
+  // Using a RegEx Pattern to remove spaces from newCustomer
   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
   newCustomer.routeName = newCustomer.name.replace(/\s+/g, "").toLowerCase();
 

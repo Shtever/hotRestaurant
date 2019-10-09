@@ -1,19 +1,23 @@
-// Dependencies
-// =============================================================
 var express = require("express");
 var path = require("path");
-
-// Sets up the Express App 
-// =============================================================
 var app = express();
-var PORT = 3000;
-
-// Sets up the Express app to handle data parsing
+var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Star Wars Characters (DATA)
-// =============================================================
+var booked = [];
+var waiting = [];
+
+ROUTES
+// GET / -> index.html = info about the restaurant
+// GET /reservation = makeres.html
+// GET /tables -> = waitlist.html
+
+app.listen(PORT, function () {
+
+
+})
+
 var customers = [
   {
     routeName: "Customer1",
@@ -45,38 +49,26 @@ var customers = [
 // =============================================================
 
 // Basic route that sends the user first to the AJAX Page
-app.get("/", function(req, res) {
-    //route to the home screen
-  res.sendFile(path.join(__dirname, "view.html"));
+app.get("/", function (req, res) {
+  //route to the home screen
+  res.sendFile(path.join(__dirname, "/index.html"));
 });
 
-app.get("/add", function(req, res) {
-    //route to the add reservation screem
-  res.sendFile(path.join(__dirname, "add.html"));
+app.get("/reservation", function (req, res) {
+  //route to the add reservation screem
+  res.sendFile(path.join(__dirname, "/makeres.html"));
 });
 
-// Displays all characters
-app.get("/api/customers", function(req, res) {
-  return res.json(customers);
+app.get("/waitlist", function (req, res) {
+  // view all of the reservations
+  res.sendFile(path.join(__dirname, "/waitlist.html"));
 });
 
-// Displays a single character, or returns false
-app.get("/api/customers/:customer", function(req, res) {
-  var chosen = req.params.customer;
 
-  console.log(chosen);
 
-  for (var i = 0; i < customers.length; i++) {
-    if (chosen === customers[i].routeName) {
-      return res.json(customers[i]);
-    }
-  }
-
-  return res.json(false);
-});
 
 // Create New Characters - takes in JSON input
-app.post("/api/customers", function(req, res) {
+app.post("/api/customers", function (req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
   var newCustomer = req.body;
@@ -94,6 +86,6 @@ app.post("/api/customers", function(req, res) {
 
 // Starts the server to begin listening
 // =============================================================
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("App listening on PORT " + PORT);
 });

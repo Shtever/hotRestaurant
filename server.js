@@ -1,19 +1,20 @@
 var express = require("express");
 var path = require("path");
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3005;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 var booked = [];
 var waiting = [];
 
-ROUTES
+// ROUTES
 // GET / -> index.html = info about the restaurant
 // GET /reservation = makeres.html
 // GET /tables -> = waitlist.html
 
 app.listen(PORT, function () {
+console.log("App listening on PORT " + PORT);
 
 
 })
@@ -47,19 +48,20 @@ var customers = [
 
 // Routes
 // =============================================================
+app.use(express.static("public"))
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
   //route to the home screen
-  res.sendFile(path.join(__dirname, "/index.html"));
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 app.get("/reservation", function (req, res) {
   //route to the add reservation screem
-  res.sendFile(path.join(__dirname, "/makeres.html"));
+  res.sendFile(path.join(__dirname, "/public/makeres.html"));
 });
 
-app.get("/waitlist", function (req, res) {
+app.get("/public/waitlist", function (req, res) {
   // view all of the reservations
   res.sendFile(path.join(__dirname, "/waitlist.html"));
 });
@@ -86,6 +88,3 @@ app.post("/api/customers", function (req, res) {
 
 // Starts the server to begin listening
 // =============================================================
-app.listen(PORT, function () {
-  console.log("App listening on PORT " + PORT);
-});

@@ -56,14 +56,14 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.get("/reservation", function (req, res) {
+app.get("/public/reservation", function (req, res) {
   //route to the add reservation screem
   res.sendFile(path.join(__dirname, "/public/makeres.html"));
 });
 
 app.get("/public/waitlist", function (req, res) {
   // view all of the reservations
-  res.sendFile(path.join(__dirname, "/waitlist.html"));
+  res.sendFile(path.join(__dirname, "/public/waitlist.html"));
 });
 
 
@@ -81,7 +81,7 @@ app.post("/api/customers", function (req, res) {
 
   console.log(newCustomer);
 
-  characters.push(newCustomer);
+  customer.push(newCustomer);
 
   res.json(newCustomer);
 });

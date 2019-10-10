@@ -13,13 +13,9 @@ var waiting = [];
 // GET /reservation = makeres.html
 // GET /tables -> = waitlist.html
 
-app.listen(PORT, function () {
-console.log("App listening on PORT " + PORT);
 
 
-})
-
-var customers = [
+var reservations = [
   {
     routeName: "Customer1",
     name: "Steve",
@@ -53,26 +49,23 @@ app.use(express.static("public"))
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
   //route to the home screen
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/public/reservation", function (req, res) {
+app.get("/reservation", function (req, res) {
   //route to the add reservation screem
   res.sendFile(path.join(__dirname, "/public/makeres.html"));
 });
 
-app.get("/public/waitlist", function (req, res) {
+app.get("/waitlist", function (req, res) {
   // view all of the reservations
   res.sendFile(path.join(__dirname, "/public/waitlist.html"));
+  return reservations;
 });
 
 
-
-
-// Create New Characters - takes in JSON input
-app.post("/api/customers", function (req, res) {
+app.post("/api/reservations", function (req, res) {
   // req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware
   var newCustomer = req.body;
 
   // Using a RegEx Pattern to remove spaces from newCharacter
@@ -81,6 +74,7 @@ app.post("/api/customers", function (req, res) {
 
   console.log(newCustomer);
 
+ // IF booked array is full, push to waitlist //
   customer.push(newCustomer);
 
   res.json(newCustomer);
@@ -88,3 +82,7 @@ app.post("/api/customers", function (req, res) {
 
 // Starts the server to begin listening
 // =============================================================
+
+app.listen(PORT, function () {
+  console.log("App listening on PORT " + PORT);
+  });

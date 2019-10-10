@@ -31,17 +31,17 @@
               </div>
 
               <div class="form-group">
-                <label for="role">Email</label>
-                <input type="text" class="form-control" id="role">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email">
               </div>
 
               <div class="form-group">
-                <label for="age">Number</label>
+                <label for="number">Number</label>
                 <input type="text" class="form-control" id="number">
               </div>
 
               <div class="form-group">
-                <label for="force-points">Dietary Restrictions</label>
+                <label for="dietary">Dietary Restrictions</label>
                 <input type="text" class="form-control" id="dietary">
               </div>
 
@@ -63,9 +63,9 @@
       event.preventDefault();
       var newCharacter = {
         name: $("#name").val().trim(),
-        role: $("#role").val().trim(),
-        age: $("#age").val().trim(),
-        forcePoints: $("#force-points").val().trim()
+        email: $("#email").val().trim(),
+        number: $("#number").val().trim(),
+        dietary: $("#dietary").val().trim()
       };
 
       // Question: What does this code do??
